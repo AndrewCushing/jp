@@ -1,0 +1,46 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for the Payment Body which includes
+// Iso20022, LedgerResponse, MandateEnquiry, PaymentIdentifiers and Properties.
+syntax = "proto3";
+
+package protobuf.payment;
+
+import "payment_pacs_008_001_06.proto";
+import "payment_ledger_posting.proto";
+import "payment_identifiers.proto";
+import "payment_form3_data.proto";
+import "payment_raw_message_data.proto";
+
+option java_package = "uk.co.nationwide.payments.schema.payment.body";
+option java_outer_classname = "PaymentBodyPart";
+
+message BodyPart {
+  PartName part_name = 1;
+  string part_type = 2;
+  string part_content_type = 3;
+  string part_content_transfer_encoding = 4;
+
+  oneof content {
+    Pacs_008_001_06 payment_iso_20022 = 5;
+    Identifiers payment_identifiers = 6;
+    LedgerPosting ledger_posting = 7;
+    Form3Data form3_data = 8;
+    RawMessageData raw_message_data = 9;
+  }
+
+}
+
+enum PartName {
+  PartName_NotSet = 0;
+  paymentmessage = 1;
+  paymentidentifiers = 2;
+  ledgerposting = 3;
+  form3data = 4;
+  rawmessagedata = 5;
+}
+
+
+
+
+

@@ -1,0 +1,21 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Main PaymentEnvelope schema which includes
+// Header and Body to construct the whole envelope schema.
+syntax = "proto3";
+
+package protobuf.payment;
+
+import "payment_envelope_header.proto";
+import "payment_envelope_body_part.proto";
+
+option java_package = "uk.co.nationwide.payments.schema.payment";
+option java_outer_classname = "PaymentEnvelope";
+
+message Envelope {
+
+  string version = 1;
+  Header header = 2;
+
+  repeated BodyPart body = 3;
+}

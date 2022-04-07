@@ -1,0 +1,230 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for the ISO2022 PACS 008.001.06 Payment Schema.
+syntax = "proto3";
+
+package protobuf.payment;
+
+option java_package = "uk.co.nationwide.payments.schema.payment.body.iso20022";
+option java_outer_classname = "PaymentPacs008_001_06";
+
+message Pacs_008_001_06 {
+  FIToFICstmrCdtTrfType FIToFICstmrCdtTrf = 1;
+}
+
+message FIToFICstmrCdtTrfType {
+  GrpHdrType GrpHdr = 1;
+  CdtTrfTxInfType CdtTrfTxInf = 2;
+}
+
+message CdtTrfTxInfType {
+  PmtIdType PmtId = 1;
+  PmtTpInfType2 PmtTpInf = 2;
+  CurrencyAndAmountType IntrBkSttlmAmt = 3;
+  string IntrBkSttlmDt = 4;
+  string AccptncDtTm = 5;
+  CurrencyAndAmountType InstdAmt = 6;
+  string XchgRate = 7;
+  string ChrgBr = 8;
+  ChrgsInfType ChrgsInf = 9;
+  InstgAgtType InstgAgt = 10;
+  InstdAgtType InstdAgt = 11;
+  DbtrType Dbtr = 12;
+  DbtrAcctType DbtrAcct = 13;
+  DbtrAgtType DbtrAgt = 14;
+  CdtrAgtType CdtrAgt = 15;
+  CdtrType Cdtr = 16;
+  CdtrAcctType CdtrAcct = 17;
+  PurpType Purp = 18;
+  RgltryRptgType RgltryRptg = 19;
+  RmtInfType RmtInf = 20;
+}
+
+message RmtInfType {
+  string Ustrd = 1;
+  StrdType Strd = 2;
+}
+
+message StrdType {
+  CdtrRefInfType CdtrRefInf = 1;
+  repeated string AddtlRmtInf = 2;
+}
+
+message CdtrRefInfType {
+  string Ref = 1;
+}
+
+message RgltryRptgType {
+  DtlsType Dtls = 1;
+}
+
+message DtlsType {
+  repeated string Inf = 1;
+}
+
+message PurpType {
+  string Cd = 1;
+}
+
+message CdtrAcctType {
+  IdType2 Id = 1;
+  TpType Tp = 2;
+  string Nm = 3;
+}
+
+message TpType {
+  string Prtry = 1;
+}
+
+message IdType2 {
+  OthrType2 Othr = 1;
+}
+
+message CdtrType {
+  PstlAdrType PstlAdr = 1;
+}
+
+message CdtrAgtType {
+  FinInstnIdType5 FinInstnId = 1;
+}
+
+message DbtrAgtType {
+  FinInstnIdType2 FinInstnId = 1;
+}
+
+message DbtrAcctType {
+  IdType Id = 1;
+  string Nm = 2;
+}
+
+message IdType {
+  string IBAN = 1;
+  OthrType2 Othr = 2;
+}
+
+message DbtrType {
+  PstlAdrType PstlAdr = 1;
+}
+
+message PstlAdrType {
+  repeated string AdrLine = 1;
+}
+
+message InstdAgtType {
+  FinInstnIdType4 FinInstnId = 1;
+}
+
+message FinInstnIdType4 {
+  OthrType2 Othr = 1;
+}
+
+message InstgAgtType {
+  FinInstnIdType3 FinInstnId = 1;
+}
+
+message FinInstnIdType3 {
+  ClrSysMmbIdType ClrSysMmbId = 2;
+  OthrType2 Othr = 3;
+}
+
+message OthrType2 {
+  string Id = 1;
+}
+
+message ChrgsInfType {
+  CurrencyAndAmountType Amt = 1;
+  AgtType Agt = 2;
+}
+
+message AgtType {
+  FinInstnIdType2 FinInstnId = 1;
+}
+
+message FinInstnIdType2 {
+  string BICFI = 1;
+  ClrSysMmbIdType ClrSysMmbId = 2;
+}
+
+message FinInstnIdType5 {
+  ClrSysMmbIdType ClrSysMmbId = 2;
+}
+
+message ClrSysMmbIdType {
+  ClrSysIdType ClrSysId = 1;
+  string MmbId = 2;
+}
+
+message ClrSysIdType {
+  string Cd = 1;
+}
+
+message CurrencyAndAmountType {
+  string Ccy = 1;
+  string Amt = 2;
+}
+
+message PmtTpInfType2 {
+    SvcLvlType SvcLvl = 1;
+    LclInstrmType LclInstrm = 2;
+    CtgyPurpType CtgyPurp = 3;
+}
+
+message LclInstrmType {
+  string Prtry = 1;
+}
+
+message SvcLvlType {
+    string Prtry = 1;
+}
+
+message PmtIdType {
+  string EndToEndId = 1;
+  string TxId = 2;
+  string ClrSysRef = 3;
+}
+
+message GrpHdrType {
+  string MsgId = 1;
+  string CreDtTm = 2;
+  string NbOfTxs = 3;
+  SttlmInfType SttlmInf = 4;
+  PmtTpInfType1 PmtTpInf = 5;
+}
+
+message SttlmInfType {
+  string SttlmMtd = 1;
+  ClrSysType ClrSys = 2;
+  InstRmbrsmntAgtType InstgRmbrsmntAgt = 3;
+  InstRmbrsmntAgtType InstdRmbrsmntAgt = 4;
+}
+
+message ClrSysType {
+  string Prtry = 1;
+}
+
+message InstRmbrsmntAgtType {
+  FinInstnIdType1 FinInstnId = 1;
+}
+
+message FinInstnIdType1 {
+  OthrType Othr = 1;
+  SchmeNmType SchmeNm = 2;
+}
+
+message OthrType {
+  string Id = 1;
+
+  SchmeNmType SchmeNm = 2;
+}
+
+message SchmeNmType {
+  string Prtry = 1;
+}
+
+message PmtTpInfType1 {
+  CtgyPurpType CtgyPurp = 1;
+}
+
+message CtgyPurpType {
+  string Prtry = 1;
+}

@@ -1,0 +1,49 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for Form3 Data Received with the Payment.
+syntax = "proto3";
+
+package protobuf.payment;
+
+option java_package = "uk.co.nationwide.payments.schema.payment.body";
+option java_outer_classname = "PaymentForm3Data";
+
+message Form3Data
+{
+  string source_id = 1;
+  string organisation_id = 2;
+  PaymentAdmissionType payment_admission = 3;
+  PaymentType payment = 4;
+
+  message PaymentAdmissionType {
+    string id = 1;
+    string version = 2;
+    string creation_date_time = 3;
+    string modified_date_time = 4;
+    string admission_date_time = 5;
+    Status status = 6;
+    StatusReason status_reason = 7;
+    string scheme_status_code = 8;
+  }
+
+  message PaymentType {
+    string version = 1;
+    string creationDateTime = 2;
+    string modifiedDateTime = 3;
+  }
+}
+
+enum Status {
+  Status_NotSet = 0;
+  confirmed = 1;
+  failed = 2;
+  pending = 3;
+}
+
+enum StatusReason {
+  StatusReason_NotSet = 0;
+  accepted = 1;
+  invalid_beneficiary_details = 2;
+  bankid_not_provisioned = 3;
+  unknown_accountnumber = 4;
+}

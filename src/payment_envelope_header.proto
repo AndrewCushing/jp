@@ -1,0 +1,115 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for the Payment Header which includes
+// Properties, Signature, State and Exception details.
+syntax = "proto3";
+
+package protobuf.payment;
+
+import "payment_envelope_body_part.proto";
+
+option java_package = "uk.co.nationwide.payments.schema.payment.header";
+option java_outer_classname = "PaymentHeader";
+
+message Header {
+  Properties properties = 1;
+  repeated Signature signatures = 2;
+  repeated PaymentState state = 3;
+  PaymentException exception = 4;
+}
+
+message Properties{
+  string message_id = 1;
+  string message_type = 2;
+  string timestamp = 3;
+  PaymentStatus payment_status = 4;
+  PaymentScheme payment_scheme = 5;
+  PaymentType paymentType = 6;
+  int32 paymentStatusCount = 7;
+  string trace_id = 8;
+}
+
+message Signature {
+  repeated PartName part_names = 1;
+  string signature = 2;
+  string signature_algorithm = 3;
+  string key_id = 4;
+  string key_store = 5;
+}
+
+message PaymentState
+{
+  string name = 1;
+  map<string, string> value = 2;
+}
+
+message PaymentException
+{
+  ExceptionState state = 1;
+  ExceptionQueue queue = 2;
+  string reason = 3;
+  string timestamp = 4;
+  Service service = 5;
+  map<string, string> additional_data = 6;
+}
+
+enum Service {
+  Service_NotSet = 0;
+  PaymentNotificationReceiver = 1;
+  PaymentAdmissions = 2;
+  InboundSAPPaymentFlowController = 3;
+  SAPPosting = 4;
+  ReconciliationPosting = 5;
+  AccountingPosting = 6;
+  PaymentHistoryPosting = 7;
+  MandateEnquiry = 8;
+  ExceptionSink = 9;
+}
+
+enum PaymentStatus {
+  PaymentStatus_NotSet = 0;
+  Received = 1;
+  SubmittedForPosting = 2;
+  Posted = 3;
+  FailedPosting = 4;
+  ProcessingComplete = 5;
+  PendingReturn = 6;
+  PendingForwarding = 7;
+  Exception = 8;
+}
+
+enum PaymentScheme {
+  PaymentScheme_NotSet = 0;
+  FasterPayments = 1;
+}
+
+enum PaymentType {
+  PaymentType_NotSet = 0;
+  StandingOrder = 1;
+  FutureDatedPayment = 2;
+  ImmediatePayment = 3;
+}
+
+enum ExceptionQueue {
+  ExceptionQueue_NotSet = 0;
+  EXCEPTION = 1;
+}
+
+enum ExceptionState {
+  ExceptionState_NotSet = 0;
+  SignatureVerificationFailed = 1;
+  MessageValidationFailed = 2;
+  MessageCreationFailure = 3;
+  SignatureFailure = 4;
+  LedgerTechnicalFailure = 5;
+  InvalidBusinessFailure = 6;
+  ServiceRetriesExhausted = 7;
+  ServiceErrorResponse = 8;
+  DatabaseUnavailable = 9;
+  LedgerUnavailable = 10;
+  TopicFailure = 11;
+  DecryptionFailure = 12;
+  EncryptionFailure = 13;
+  TokenFailure = 14;
+  ServiceFailure = 15;
+}

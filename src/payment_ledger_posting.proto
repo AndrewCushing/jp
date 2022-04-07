@@ -1,0 +1,64 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for the Ledger Posting including response codes.
+syntax = "proto3";
+
+package protobuf.payment;
+
+option java_package = "uk.co.nationwide.payments.schema.payment.body";
+option java_outer_classname = "PaymentLedgerPosting";
+
+message LedgerPosting {
+  string ledger_request_posting_id = 1;
+  string ledger_response_posting_id = 2;
+  TransactionPostingStatus transaction_posting_status = 3;
+  FailureReason failure_reason = 4;
+  string batch_date = 5;
+  string account_type = 6;
+  string account_class = 7;
+  string transaction_type = 8;
+  LedgerId ledger_id = 9;
+  LedgerPostingSign ledger_posting_sign = 10;
+  string posting_code_text = 11;
+}
+
+enum TransactionPostingStatus {
+    TransactionPostingStatus_NotSet = 0;
+    Success = 1;
+    Fail = 2;
+}
+
+enum FailureReason {
+    FailureReason_NotSet = 0;
+    InvalidAccount = 1;
+    AccountClosed = 2;
+    AccountStopped = 3;
+    AccountHolderDeceased = 4;
+    PostingDateBeforeAccountOpeningDate = 5;
+    PostingDateAfterAccountClosedDate = 6;
+}
+
+enum LedgerId {
+  LedgerId_NotSet = 0;
+  BankingSavingsUnisys = 1;
+  MortgageInsuranceNBSFujitsu = 2;
+  MortgageInsuranceUCBFujitsu = 3;
+  PersonalLoanRBS = 4;
+  NWTrustAS400 = 5;
+  CreditCardTSYS = 6;
+  FasterPayment = 7;
+  BankRec = 8;
+  BankRecByCorporateCheque = 9;
+  BankingSavingsSap = 10;
+  CAndCC = 11;
+  BACS = 12;
+  PDAndAMarkI = 13;
+  PDAndAMarkII = 14;
+  CommercialELS = 15;
+}
+
+enum LedgerPostingSign {
+  LedgerPostingSign_NotSet = 0;
+  Debit = 1;
+  Credit = 2;
+}

@@ -1,0 +1,26 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for Form3 Data Received with the Payment.
+syntax = "proto3";
+
+package protobuf.payment;
+
+option java_package = "uk.co.nationwide.payments.schema.payment.body";
+option java_outer_classname = "PaymentRawMessageData";
+
+message RawMessageData{
+
+  RawMessageDataType raw_message_data_type = 1;
+  string raw_message_data = 2;
+
+}
+
+enum RawMessageDataType{
+
+  RawMessageDataType_NotSet = 0;
+  Form3PaymentAdmission = 1;
+  SapPostingResponse = 2;
+  JWTResponse = 3;
+
+}
+

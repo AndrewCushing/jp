@@ -1,0 +1,16 @@
+// Copyright (c) Nationwide Building Society. All rights reserved.
+//
+// Schema for Payment Identifiers.
+syntax = "proto3";
+
+package protobuf.payment;
+
+option java_package = "uk.co.nationwide.payments.schema.payment.body";
+option java_outer_classname = "PaymentIdentifiers";
+
+message Identifiers
+{
+  string payment_id = 1;
+  string urn = 2;
+  string unique_scheme_id = 3;
+}
