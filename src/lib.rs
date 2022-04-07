@@ -1,11 +1,8 @@
+mod schemas;
 mod ser;
 mod des;
 
 use clap::{Args, Parser, Subcommand};
-
-mod payment {
-    include!(concat!(env!("OUT_DIR"), "/protobuf.payment.rs"));
-}
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
