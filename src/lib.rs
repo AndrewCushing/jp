@@ -3,6 +3,9 @@ mod ser;
 mod des;
 
 use clap::{Args, Parser, Subcommand};
+use log::{error, info};
+use protobuf::ProtobufError;
+use crate::schemas::structs::payment_envelope::Envelope;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -38,6 +41,13 @@ struct Deserialise {
     file_out: Option<String>,
 }
 
-pub fn run(args: Cli) {
-    println!("You have used the subcommand: {:?}", args.command);
+pub fn deserialise(bytes: &[u8]) {
+    match des::deserialise(bytes) {
+        Ok(envelope) => {
+            info!("envelope: {:?}", envelope);
+        }
+        Err(err) => {
+            error!("Something went wrong when deserialising: {}", err)
+        }
+    };
 }
