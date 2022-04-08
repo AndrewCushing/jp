@@ -65,7 +65,12 @@ async fn consume_and_print(brokers: &str, group_id: &str, topics: &[&str]) {
                 match m.payload() {
                     None => {}
                     Some(bytes) => {
-                        deserialise(bytes)
+                        match deserialise(bytes) {
+                            None => {}
+                            Some(envelope) => {
+                                info!("Topic: {}\nEnvelope:\n{:?}", m.topic(), envelope);
+                            }
+                        }
                     }
                 }
                 debug!("key: '{:?}', topic: {}, partition: {}, offset: {}, timestamp: {:?}",

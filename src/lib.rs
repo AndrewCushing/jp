@@ -41,13 +41,14 @@ struct Deserialise {
     file_out: Option<String>,
 }
 
-pub fn deserialise(bytes: &[u8]) {
+pub fn deserialise(bytes: &[u8]) -> Option<Envelope> {
     match des::deserialise(bytes) {
         Ok(envelope) => {
-            info!("envelope: {:?}", envelope);
+            Some(envelope)
         }
         Err(err) => {
-            error!("Something went wrong when deserialising: {}", err)
+            error!("Something went wrong when deserialising: {}", err);
+            None
         }
-    };
+    }
 }
